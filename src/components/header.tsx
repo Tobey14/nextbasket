@@ -1,19 +1,100 @@
+"use client"; // This is a client component 
+
+import { LocalPhoneOutlined, EmailOutlined, ExpandMore, PersonOutlineOutlined, SearchOutlined, ShoppingCartOutlined, FavoriteBorderOutlined } from '@mui/icons-material';
+import Image from '../../node_modules/next/image';
+import { useState } from 'react';
+
 export default function Header() {
+    const socials = ['insta', 'youtube', 'fb', 'twitter'];
+    const [showDropDown, setShowDropDown] = useState(false);
     return (
-      <main className="">
-        <section className="bg-[#23856D] h-[58px] flex items-center justify-between">
-            <div className="flex items-center px-5">
-                <p className="mr-2">
-                    (225) 555-0118
+        <main className="text-sm font-semibold  cursor-pointer">
+            <section className="hidden bg-[#23856D] h-[58px] lg:flex items-center justify-between px-5 text-white">
+                <div className="flex items-center space-x-9">
+                    <p className="">
+                        <LocalPhoneOutlined className="text-sm" /> (225) 555-0118
+                    </p>
+
+                    <p className="">
+                        <EmailOutlined className="text-sm" /> michelle.rivera@example.com
+                    </p>
+                </div>
+
+                <p className='hidden lg:block'>
+                    Follow Us  and get a chance to win 80% off
                 </p>
 
-                <p className="">
-                    michelle.rivera@example.com
-                </p>
+                <div className="flex space-x-3 items-center">
+                    <p className="">
+                        Follow Us  :
+                    </p>
+                    {socials.map((social, key) => {
+                        return <Image
+                            key={key}
+                            src={`/images/${social}.svg`}
+                            width={16}
+                            height={16}
+                            alt={`${social} icon`}
+                        />
+                    })
+                    }
+                </div>
+            </section>
 
-            </div>
-        </section>
-        
-      </main>
+            <section className="relative bg-transparent h-[58px] flex items-center justify-between px-5 text-black font-bold mt-2 sm:mb-10">
+                <nav className="flex items-center w-[100%] justify-between">
+                    <div className='flex items-center justify-between lg:w-[55%] xl:w-[45%] space-x-5'>
+                        <Image
+                            src={`/images/logo.svg`}
+                            width={105}
+                            height={24}
+                            alt={`logo icon`}
+                        />
+
+                        <ul className='hidden lg:flex space-x-5 items-center text-[#737373]'>
+                            <li>Home</li>
+                            <li>Shop <ExpandMore /></li>
+                            <li>About</li>
+                            <li>Blog</li>
+                            <li>Contact</li>
+                            <li>Pages</li>
+                        </ul>
+                    </div>
+
+
+                    <div className='flex items-center justify-between text-[#23A6F0] space-x-5'>
+                        <button className='hidden lg:block'><PersonOutlineOutlined className="hidden text-sm" /> Login / Register</button>
+
+                        <ul className='flex space-x-5 items-center'>
+                            <li className='hidden lg:block'><SearchOutlined className="text-base" /></li>
+                            <li className='text-[#737373] lg:text-[#23A6F0]'><ShoppingCartOutlined className="text-xl" /> 1</li>
+                            <li className='text-[#737373] lg:text-[#23A6F0]'><FavoriteBorderOutlined className="text-xl" /> 2</li>
+                            <Image
+                                className="lg:hidden"
+                                src={`/images/menu.svg`}
+                                width={25}
+                                height={25}
+                                alt={`logo icon`}
+                                onClick={() => setShowDropDown(!showDropDown)}
+                            />
+                        </ul>
+                    </div>
+
+                </nav>
+
+            </section>
+            <nav className="lg:hidden w-full relative left-0 text-[#737373] text-xl font-bold">
+                <ul className={showDropDown ? 'flex flex-col items-center space-y-7 h-fit bg-[#FFFFFF] py-5 duration-1000' : 'h-0 duration-500'}>
+                    <li className={!showDropDown ? 'hidden duration-1000': 'duration-1000'}>Home</li>
+                    <li className={!showDropDown ? 'hidden duration-1000': 'duration-1000'}>Product</li>
+                    <li className={!showDropDown ? 'hidden duration-1000': 'duration-1000'}>Pricing</li>
+                    <li className={!showDropDown ? 'hidden duration-1000': 'duration-1000'}>Contact</li>
+                </ul>
+            </nav>
+
+
+
+
+        </main>
     );
 }
