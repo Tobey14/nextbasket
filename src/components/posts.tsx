@@ -1,5 +1,4 @@
 
-import Image from "../../node_modules/next/image";
 import { AccessAlarmOutlined, EqualizerOutlined, ArrowForwardIosOutlined} from '@mui/icons-material';
 import a from "../../public/images/posts/a.svg";
 import b from "../../public/images/posts/b.svg";
