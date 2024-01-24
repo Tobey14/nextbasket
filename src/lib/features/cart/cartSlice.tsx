@@ -1,6 +1,6 @@
 'use-client'
 
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import {CartState} from '@/utils/interface';
 import { Add, remove, minusOne, getCartFromLocalStorage } from '@/utils/cart';
@@ -9,7 +9,6 @@ import { Add, remove, minusOne, getCartFromLocalStorage } from '@/utils/cart';
 const initialState = { 
     isOpen: false,
     cart: getCartFromLocalStorage() || [],
-    favorites: [],
 } as CartState
 
 const cartSlice = createSlice({
@@ -23,7 +22,6 @@ const cartSlice = createSlice({
         void(state.cart = getCartFromLocalStorage() || []);
     },
     addToCart(state: CartState, action: PayloadAction<number>){
-        console.log({action})
         return Add(action.payload);
     },
     removeFromCart(state: CartState, action: PayloadAction<number>){

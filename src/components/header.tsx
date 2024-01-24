@@ -6,17 +6,21 @@ import { useState } from 'react';
 import {
     toggleCart
 } from '@/lib/features/cart/cartSlice';
+import {
+    toggleWishList
+} from '@/lib/features/wishList/wishListSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import {Product} from "@/utils/interface";
+import { Product } from "@/utils/interface";
 
 export default function Header() {
     const socials = ['insta', 'youtube', 'fb', 'twitter'];
     const [showDropDown, setShowDropDown] = useState(false);
     const { cart } = useSelector((state: any) => state.cart);
+    const { wishList } = useSelector((state: any) => state.wishList);
     const dispatch = useDispatch();
-    function total():number {
+    function total(): number {
         let total = 0;
-        cart.forEach(function (element:Product) {
+        cart.forEach(function (element: Product) {
             total += Number(element.quantity);
         });
         return Number(total);
@@ -50,7 +54,7 @@ export default function Header() {
                             width={16}
                             height={16}
                             alt={`${social} icon`}
-                            style={{ width: '17px', cursor:'pointer', height: 'auto'}}
+                            style={{ width: '17px', cursor: 'pointer', height: 'auto' }}
                         />
                     })
                     }
@@ -84,7 +88,7 @@ export default function Header() {
                         <ul className='flex space-x-5 items-center'>
                             <li className='hidden lg:block cursor-pointer'><SearchOutlined className="text-base" /></li>
                             <li className='text-[#737373] lg:text-[#23A6F0] cursor-pointer' onClick={() => dispatch(toggleCart(true))}><ShoppingCartOutlined className="text-xl" /> {total()}</li>
-                            <li className='text-[#737373] lg:text-[#23A6F0] cursor-pointer'><FavoriteBorderOutlined className="text-xl" /> 2</li>
+                            <li className='text-[#737373] lg:text-[#23A6F0] cursor-pointer' onClick={() => dispatch(toggleWishList(true))}><FavoriteBorderOutlined className="text-xl" /> {wishList?.length}</li>
                             <Image
                                 className="lg:hidden"
                                 src={`/images/menu.svg`}
@@ -101,11 +105,16 @@ export default function Header() {
             </section>
             <nav className="lg:hidden w-full relative left-0 text-[#737373] text-xl font-bold">
                 <ul className={showDropDown ? 'flex flex-col items-center space-y-7 h-fit bg-[#FFFFFF] py-5 duration-1000' : 'h-0 duration-500'}>
-                    <li className={!showDropDown ? 'hidden duration-1000': 'duration-1000'}>Home</li>
-                    <li className={!showDropDown ? 'hidden duration-1000': 'duration-1000'}>Product</li>
-                    <li className={!showDropDown ? 'hidden duration-1000': 'duration-1000'}>Pricing</li>
-                    <li className={!showDropDown ? 'hidden duration-1000': 'duration-1000'}>Contact</li>
+                    <li className={!showDropDown ? 'hidden duration-1000' : 'duration-1000'}>Home</li>
+                    <li className={!showDropDown ? 'hidden duration-1000' : 'duration-1000'}>Product</li>
+                    <li className={!showDropDown ? 'hidden duration-1000' : 'duration-1000'}>Pricing</li>
+                    <li className={!showDropDown ? 'hidden duration-1000' : 'duration-1000'}>Contact</li>
+                    <li className={!showDropDown ? 'hidden duration-1000' : 'duration-1000'}><button className='block text-[#23A6F0]'><PersonOutlineOutlined className="text-sm" /> Login / Register</button></li>
+
+                    
+
                 </ul>
+                
             </nav>
 
 

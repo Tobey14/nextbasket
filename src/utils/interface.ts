@@ -9,7 +9,11 @@ export interface CounterState {
 export interface CartState {
   isOpen: boolean;
   cart: [];
-  favorites: [];
+}
+
+export interface WishListState {
+  isOpen: boolean;
+  wishList: [];
 }
 
 export interface ProductProps {

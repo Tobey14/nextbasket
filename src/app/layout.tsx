@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Cart from "@/components/cart";
+import WishList from "@/components/wishList";
 import {Providers} from "./storeProvider";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,7 +31,7 @@ export default function RootLayout({
             <Header />
               {children}
               <Cart />
-
+              <WishList />
             <Footer />
           </section> 
           <ToastContainer 

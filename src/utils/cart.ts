@@ -42,15 +42,15 @@ export const minusOne = (product:Product) =>{
         if(prodInCart.quantity < 2){
             return remove(product)
         }
-        console.log('yes')
+        // console.log('yes')
         // prodInCart = {...prodInCart, quantity: 1}
         prodInCart.quantity--;
 
-        console.log({prodInCart})
+        // console.log({prodInCart})
 
         let remainderCartItems = removeCartItem(prodInCart);
 
-        console.log({remainderCartItems})
+        // console.log({remainderCartItems})
         remainderCartItems.push(prodInCart);
         doTheAdding(remainderCartItems)
     }
@@ -59,14 +59,14 @@ export const minusOne = (product:Product) =>{
 
 export const remove = (product:Product) =>{
     let remainderCartItems = removeCartItem(product);
-    console.log({remainderCartItems})
+    // console.log({remainderCartItems})
     doTheAdding(remainderCartItems)
     return;
 }
 
 const doTheAdding = (data:Array<object> | []) => {
 
-    console.log('final data',{data})
+    // console.log('final data',{data})
     const encryptedData = encrypter(data);
     localStorage.removeItem('nb_cartxxx');
     localStorage.setItem('nb_cartxxx', JSON.stringify(encryptedData));
@@ -76,7 +76,7 @@ const isInCart = (product:Product) => {
     let cartData = getCartFromLocalStorage();
     let result;
 
-    console.log({product})
+    // console.log({product})
     for(let i=0; i<cartData.length; i++){
         if(cartData[i].id == product.id){
             result = cartData[i]
@@ -94,9 +94,9 @@ const removeCartItem = (product:Product) => {
     if (!mainData) {
         return;
     }
-    console.log({mainData})
+    // console.log({mainData})
 
-    console.log({product})
+    // console.log({product})
 
     let result = mainData.filter((x:Product, ind:number) => {
        return x.id !== product.id
@@ -112,7 +112,7 @@ export const getCartFromLocalStorage = () => {
     const result = JSON.parse(localStorage.getItem("nb_cartxxx"));
     // console.log({ result });
 
-    const decryptedActiveProduct = result.length>0 ? deCrypter(result) : null;
+    const decryptedActiveProduct = result ? deCrypter(result) : null;
     // console.log({ decryptedActiveProduct });
     return typeof decryptedActiveProduct === 'object'? decryptedActiveProduct : [];
 };

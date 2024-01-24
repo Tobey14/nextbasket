@@ -13,7 +13,11 @@ import {
 import {
   addToCart, getUserCart
 } from '@/lib/features/cart/cartSlice';
+import {
+  addToWishList, getUserWishList
+} from '@/lib/features/wishList/wishListSlice';
 import { toast } from 'react-toastify';
+import { isInWishList } from '@/utils/wishList';
 
 
 export default function Product() {
@@ -22,6 +26,7 @@ export default function Product() {
   const dispatch = useDispatch();
   const [activeImage, setActiveImage] = useState(activeProduct?.thumbnail);
   const [isCartUpdated, setIsCartUpdated] = useState(false);
+  const [isWishListUpdated, setIsWishListUpdated] = useState(false);
   const [imgIndex, setImgIndex] = useState(0);
   const ratings = Array.from(Array(Math.round(activeProduct?.rating)).keys());
   const undeservedRating = Array.from(Array((5 - Math.round(activeProduct?.rating))).keys());
@@ -30,6 +35,7 @@ export default function Product() {
     dispatch(fetchSingleProduct(activeProduct?.id));
     setActiveImage(activeProduct?.thumbnail);
     setIsCartUpdated(false);
+    setIsWishListUpdated(false);
   }, [activeProduct?.id])
 
   const viewNextImage = () => {
@@ -53,6 +59,19 @@ export default function Product() {
       toast.success('Cart updated successfully');
       dispatch(getUserCart());
       return setIsCartUpdated(true);
+    }, 1000)
+  }
+
+  const putInWishList = () => {
+    if(isWishListUpdated || isInWishList(activeProduct)){
+      toast.error('Product added to your WishList already!');
+      return;
+    }
+    dispatch(addToWishList(activeProduct)); 
+    setTimeout(async ()=>{
+      toast.success('WishList updated successfully');
+      dispatch(getUserWishList());
+      return setIsWishListUpdated(true);
     }, 1000)
   }
 
@@ -125,7 +144,7 @@ export default function Product() {
 
           <div className="flex space-x-5 mt-3">
             <button className="hover:text-[#23A6F0] px-5 py-2 w-fit border-solid border-2 border-[#23A6F0] text-[#FFFFFF] bg-[#23A6F0] hover:bg-[#FFFFFF] hover:text-[#23A6F0]">Select Options</button>
-            <button className="bg-[#E8E8E8] flex items-center justify-between p-2 rounded-full cursor-pointer" >
+            <button className="bg-[#E8E8E8] flex items-center justify-between p-2 rounded-full cursor-pointer" onClick={putInWishList} disabled={isWishListUpdated}>
               <FavoriteBorderOutlined className=""/>
             </button>
             <button className="bg-[#E8E8E8] flex items-center justify-between p-2 rounded-full cursor-pointer"  onClick={putInCart} disabled={isCartUpdated}>

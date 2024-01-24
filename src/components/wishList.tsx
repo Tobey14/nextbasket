@@ -2,8 +2,8 @@
 import { DeleteOutline, Clear } from '@mui/icons-material';
 import { formatProdPrice } from '@/utils/product';
 import {
-    toggleCart, getUserCart, removeFromCart, minusOneFromCart, addToCart
-} from '@/lib/features/cart/cartSlice';
+    toggleWishList, getUserWishList, removeFromWishList
+} from '@/lib/features/wishList/wishListSlice';
 import Image from "../../node_modules/next/image";
 import { useDispatch, useSelector } from 'react-redux'
 import { Dialog, Transition } from '@headlessui/react'
@@ -11,51 +11,19 @@ import { Fragment } from 'react';
 import { Product } from "@/utils/interface";
 import { toast } from 'react-toastify';
 
-export default function Cart() {
+export default function WishList() {
     // const data = getActiveProductFromLocalStorage();
-    const { isOpen, cart } = useSelector((state: any) => state.cart);
+    const { isOpen, wishList } = useSelector((state: any) => state.wishList);
     const dispatch = useDispatch();
     function closeModal() {
-        dispatch(toggleCart(false))
+        dispatch(toggleWishList(false))
     }
 
-    function totalAmount(): number {
-        let total = 0;
-        cart.forEach(function (element: Product) {
-            total += Number(element.price) * Number(element.quantity);
-        });
-        return Number(total);
-    }
-
-    function total(): number {
-        let total = 0;
-        cart.forEach(function (element: Product) {
-            total += Number(element.quantity);
-        });
-        return Number(total);
-    }
-
-    function deleteItemFromCart(item: Product) {
-        dispatch(removeFromCart(item));
+    function deleteItemFromWishList(item: Product) {
+        dispatch(removeFromWishList(item));
         setTimeout(async () => {
-            toast.success('Cart updated successfully');
-            dispatch(getUserCart());
-        }, 1000)
-    }
-
-    function removeOneFromCart(data: Product) {
-        dispatch(minusOneFromCart(data));
-        setTimeout(async () => {
-            toast.success('Cart updated successfully');
-            dispatch(getUserCart());
-        }, 1000)
-    }
-
-    function addOneToCart(data: Product) {
-        dispatch(addToCart(data));
-        setTimeout(async () => {
-            toast.success('Cart updated successfully');
-            dispatch(getUserCart());
+            toast.success('WishList updated successfully');
+            dispatch(getUserWishList());
         }, 1000)
     }
 
@@ -91,22 +59,22 @@ export default function Cart() {
                                         <p
                                             className="text-lg font-medium text-gray-900 ml-4"
                                         >
-                                            My cart
+                                            My WishList
                                         </p>
 
                                         <Clear className="text-[#23A6F0] cursor-pointer" onClick={closeModal} />
                                     </div>
 
                                     <section className="w-full relative">
-                                        <div className="flex flex-wrap md:space-x-3 justify-center md:justify-start mb-5 px-2 md:px-5">
-                                            <div className="w-full md:w-[65%] h-fit bg-[#FFFFFF] p-1 md:p-3 shadow-2xl  overflow-x-hidden overflow-y-auto">
-                                                <p className='m-0'>Items ({total()})</p>
+                                        <div className="flex space-x-3 justify-center md:justify-start mb-5 px-5">
+                                            <div className="w-full h-fit bg-[#FFFFFF] p-1 md:p-3 shadow-2xl  overflow-x-hidden overflow-y-auto">
+                                                <p className='m-0'>Items ({wishList.length})</p>
                                                 <hr className='my-3' />
-                                                {!cart.length && <div className='text-center'>
-                                                    <p>Your Cart is Empty</p>
+                                                {!wishList.length && <div className='text-center'>
+                                                    <p>Your wishList is Empty</p>
                                                 </div>}
 
-                                                {cart.map((data: Product, index: number) => {
+                                                {wishList.map((data: Product, index: number) => {
                                                     return <div key={index}>
                                                         <div className="flex w-full justify-between">
                                                             <div className="min-w-[70%] flex">
@@ -116,9 +84,8 @@ export default function Cart() {
                                                                     width={100}
                                                                     height={100}
                                                                     alt={`product-image`}
-                                                                    style={{ width: '18%', cursor: 'pointer', height: '50px', backgroundSize: 'contain', marginRight:'10px'}}
-                                                                />
-                                                                <div>
+                                                                    style={{ width: '18%', cursor: 'pointer', height: '50px', backgroundSize: 'contain', marginRight: '10px' }}
+                                                                />                                                                <div>
                                                                     <p className='text-md text-[#23A6F0] font-semibold'>{data.title}</p>
                                                                     <p className='text-xs'>{data.description}</p>
                                                                     <p className='text-xs text-[#23A6F0]'>{data.brand}</p>
@@ -133,17 +100,9 @@ export default function Cart() {
                                                         </div>
 
                                                         <div className="mt-5 flex items-center justify-between bg-transparent">
-                                                            <button className="flex border-0 cursor-pointer" onClick={() => deleteItemFromCart(data)}>
+                                                            <button className="flex border-0 cursor-pointer" onClick={() => deleteItemFromWishList(data)}>
                                                                 <DeleteOutline className="text-[#23A6F0]" />
                                                             </button>
-
-                                                            <div className="flex">
-                                                                <div className="flex w-fit items-center">
-                                                                    <button className='w-[20px] h-[20px] pb-1 rounded-full flex justify-center items-center shadow-xl cursor-pointer border-2 border-[#23A6F0]' onClick={() => removeOneFromCart(data)}><p className='m-0 text-sm'>-</p> </button>
-                                                                    <p className='mx-3 text-md'>{data.quantity}</p>
-                                                                    <button className='w-[20px] h-[20px] pb-1 rounded-full flex justify-center items-center shadow-xl cursor-pointer border-2 border-[#23A6F0]' onClick={() => addOneToCart(data)}><p className='m-0 text-sm'>+</p></button>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                         <hr className='my-3' />
 
@@ -151,27 +110,6 @@ export default function Cart() {
                                                 })
                                                 }
 
-                                            </div>
-
-                                            <div className="cart-summary shadow-2xl p-1 md:p-3 w-full md:w-[34%] h-fit mt-5 md:mt-0">
-                                                <p>Cart Summary</p>
-                                                <hr />
-
-                                                <div className="flex justify-between">
-                                                    <p>Subtotal</p>
-
-                                                    <p className='font-semibold'>${formatProdPrice(totalAmount())}</p>
-                                                </div>
-
-                                                {/* <div className="flex justify-between">
-                                                    <p>Discount</p>
-
-                                                    <p className='font-semibold'>${formatProdPrice(data.price)}</p>
-                                                </div> */}
-
-                                                <div className='w-full flex justify-center mt-5'>
-                                                    <button className="w-fit h-fit px-3 py-1 text-[#FFFFFF] items-center bg-[#23A6F0]" onClick={() => console.log("checkout()")} >Checkout</button>
-                                                </div>
                                             </div>
 
                                         </div>
