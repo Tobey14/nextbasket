@@ -13,7 +13,7 @@ import { AppDispatch } from '@/lib/store';
 
 export default function Products(props: ProductProps) {
   const {products, totalProducts, isLoading} = useSelector((state: any) => state.product); 
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const router = useRouter();
   const [limit, setLimit] = useState(props.paginated | 8);
 

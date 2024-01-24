@@ -18,7 +18,7 @@ import { AppDispatch } from '@/lib/store';
 export default function Product() {
   const brands = 'abcdef'.split('');
   const { activeProduct } = useSelector((state: any) => state.product);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const [activeImage, setActiveImage] = useState(activeProduct?.thumbnail);
   const [isCartUpdated, setIsCartUpdated] = useState(false);
   const [isWishListUpdated, setIsWishListUpdated] = useState(false);

@@ -15,7 +15,7 @@ import { AppDispatch } from '@/lib/store';
 export default function Cart() {
     // const data = getActiveProductFromLocalStorage();
     const { isOpen, cart } = useSelector((state: any) => state.cart);
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
     function closeModal() {
         dispatch(toggleCart(false))
     }
