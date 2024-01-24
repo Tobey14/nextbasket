@@ -100,7 +100,7 @@ export default function Cart() {
 
                                     <section className="w-full relative">
                                         <div className="flex flex-wrap md:space-x-3 justify-center md:justify-start mb-5 px-2 md:px-5">
-                                            <div className="w-full md:w-[65%] h-fit bg-[#FFFFFF] p-1 md:p-3 shadow-2xl  overflow-x-hidden overflow-y-auto">
+                                            <div className="w-full md:w-[63%] h-fit bg-[#FFFFFF] p-1 md:p-3 shadow-2xl  overflow-x-hidden overflow-y-auto">
                                                 <p className='m-0'>Items ({total()})</p>
                                                 <hr className='my-3' />
                                                 {!cart.length && <div className='text-center'>
