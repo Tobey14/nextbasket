@@ -22,7 +22,6 @@ export default function Cart() {
     function totalAmount(): number {
         let total = 0;
         cart.forEach(function (element: Product) {
-            console.log({ element })
             total += Number(element.price) * Number(element.quantity);
         });
         return Number(total);
@@ -53,7 +52,7 @@ export default function Cart() {
     }
 
     function addOneToCart(data: Product) {
-        dispatch(minusOneFromCart(data));
+        dispatch(addToCart(data));
         setTimeout(async () => {
             toast.success('Cart updated successfully');
             dispatch(getUserCart());

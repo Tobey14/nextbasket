@@ -20,7 +20,7 @@ const cartSlice = createSlice({
       state.isOpen = action.payload;
     },
     getUserCart(state: CartState, action: PayloadAction<number>){   
-        void(state.cart = getCartFromLocalStorage());
+        void(state.cart = getCartFromLocalStorage() || []);
     },
     addToCart(state: CartState, action: PayloadAction<number>){
         console.log({action})

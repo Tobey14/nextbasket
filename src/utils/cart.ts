@@ -4,30 +4,30 @@ import { deCrypter, encrypter } from "./encrypt";
 export const Add = (product:Product) =>{
     let cartData = getCartFromLocalStorage();
 
-    console.log('here', product);
+    // console.log('here', product);
 
     let prodInCart = isInCart(product);
 
     if(prodInCart){
-        console.log('yes')
+        // console.log('yes')
         prodInCart = {...prodInCart, quantity: prodInCart.quantity + 1}
 
-        console.log({prodInCart})
+        // console.log({prodInCart})
 
         let remainderCartItems = removeCartItem(prodInCart);
 
-        console.log({remainderCartItems})
+        // console.log({remainderCartItems})
         remainderCartItems.push(prodInCart);
         doTheAdding(remainderCartItems)
     }else{
-        console.log('no')
+        // console.log('no')
         prodInCart = {...product, quantity: 1}
-        console.log({prodInCart})
+        // console.log({prodInCart})
 
         // product.quantity = 1;
         cartData.push(prodInCart)
 
-        console.log({cartData})
+        // console.log({cartData})
         doTheAdding(cartData);
     }
 
@@ -110,7 +110,9 @@ const removeCartItem = (product:Product) => {
 export const getCartFromLocalStorage = () => {
     // @ts-ignore
     const result = JSON.parse(localStorage.getItem("nb_cartxxx"));
-    const decryptedActiveProduct = result ? deCrypter(result) : null;
-    console.log({ decryptedActiveProduct });
-    return decryptedActiveProduct || [];
+    // console.log({ result });
+
+    const decryptedActiveProduct = result.length>0 ? deCrypter(result) : null;
+    // console.log({ decryptedActiveProduct });
+    return typeof decryptedActiveProduct === 'object'? decryptedActiveProduct : [];
 };
