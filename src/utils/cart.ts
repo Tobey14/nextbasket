@@ -1,39 +1,27 @@
 import { Product } from "./interface";
 import { deCrypter, encrypter } from "./encrypt";
 
+//function to add product to cart using localStorage
 export const Add = (product:Product) =>{
     let cartData = getCartFromLocalStorage();
-
-    // console.log('here', product);
 
     let prodInCart = isInCart(product);
 
     if(prodInCart){
-        // console.log('yes')
         prodInCart = {...prodInCart, quantity: prodInCart.quantity + 1}
-
-        // console.log({prodInCart})
-
         let remainderCartItems = removeCartItem(prodInCart);
-
-        // console.log({remainderCartItems})
         remainderCartItems.push(prodInCart);
         doTheAdding(remainderCartItems)
     }else{
-        // console.log('no')
         prodInCart = {...product, quantity: 1}
-        // console.log({prodInCart})
-
-        // product.quantity = 1;
         cartData.push(prodInCart)
-
-        // console.log({cartData})
         doTheAdding(cartData);
     }
 
     return;
 }
 
+//function to remove one product from cart using localStorage
 export const minusOne = (product:Product) =>{
     let prodInCart = isInCart(product);
 
@@ -42,81 +30,61 @@ export const minusOne = (product:Product) =>{
         if(prodInCart.quantity < 2){
             return remove(product)
         }
-        // console.log('yes')
-        // prodInCart = {...prodInCart, quantity: 1}
         prodInCart.quantity--;
-
-        // console.log({prodInCart})
-
         let remainderCartItems = removeCartItem(prodInCart);
-
-        // console.log({remainderCartItems})
         remainderCartItems.push(prodInCart);
         doTheAdding(remainderCartItems)
     }
     return;
 }
 
+//function to delete product from cart using localStorage
 export const remove = (product:Product) =>{
     let remainderCartItems = removeCartItem(product);
-    // console.log({remainderCartItems})
     doTheAdding(remainderCartItems)
     return;
 }
 
+//function that does the adding itself
 const doTheAdding = (data:Array<object> | []) => {
-
-    // console.log('final data',{data})
     const encryptedData = encrypter(data);
     typeof window !== "undefined" ? window.localStorage.removeItem('nb_cartxxx'): null;
     typeof window !== "undefined" ? window.localStorage.setItem('nb_cartxxx', JSON.stringify(encryptedData)): null;
 }
 
+//function that checks if product is already in cart or not
 const isInCart = (product:Product) => {
     let cartData = getCartFromLocalStorage();
     let result;
 
     if(typeof cartData === 'object' && cartData?.length){
-        // console.log({product})
         for(let i=0; i<cartData.length; i++){
             if(cartData[i].id == product.id){
                 result = cartData[i]
             }
         }  
     }
-
-    
-    
-    // console.log({result})
-
     return result;
 }
 
+//function that filter out an item from the cart and returns the rests
 const removeCartItem = (product:Product) => {
     let mainData = getCartFromLocalStorage();
 
     if (!mainData) {
         return;
     }
-    // console.log({mainData})
-
-    // console.log({product})
-
     let result = mainData.filter((x:Product, ind:number) => {
        return x.id !== product.id
     });
-
-    // console.log('remainder', result)
-
     return result;
 }
 
+//function to get cart
 export const getCartFromLocalStorage = () => {
     // @ts-ignore
     const result = JSON.parse(typeof window !== "undefined" ? window.localStorage.getItem("nb_cartxxx"):null);
-    // console.log({ result });
-
     const decryptedActiveProduct = result ? deCrypter(result) : null;
-    // console.log({ decryptedActiveProduct });
-    return typeof decryptedActiveProduct === 'object'? decryptedActiveProduct : [];
+    console.log({ decryptedActiveProduct });
+    return decryptedActiveProduct || [];
 };

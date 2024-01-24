@@ -12,7 +12,6 @@ import { Product } from "@/utils/interface";
 import { toast } from 'react-toastify';
 
 export default function WishList() {
-    // const data = getActiveProductFromLocalStorage();
     const { isOpen, wishList } = useSelector((state: any) => state.wishList);
     const dispatch = useDispatch();
     function closeModal() {

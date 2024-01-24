@@ -1,17 +1,16 @@
 import { Product } from "./interface";
 import { deCrypter, encrypter } from "./encrypt";
 
+//function to add product to wishlist using localStorage
 export const Add = (product:Product) =>{
     let wishListData = getWishListFromLocalStorage();
     let prodInWishList = isInWishList(product);
 
     if(prodInWishList){
         let remainderWishListItems = removewishListItem(prodInWishList);
-        // console.log({remainderWishListItems})
         remainderWishListItems.push(prodInWishList);
         doTheAdding(remainderWishListItems)
     }else{
-        // console.log({wishListData})
         wishListData.push(product)
         doTheAdding(wishListData);
     }
@@ -19,34 +18,33 @@ export const Add = (product:Product) =>{
     return;
 }
 
+//function to delete product from wishlist using localStorage
 export const remove = (product:Product) =>{
     let remainderwishListItems = removewishListItem(product);
     doTheAdding(remainderwishListItems)
     return;
 }
 
+//function that checks if product is already in wishlist or not
 export const isInWishList = (product:Product) => {
     let wishListData = getWishListFromLocalStorage();
     let result;
-
-    // console.log({product})
     for(let i=0; i<wishListData.length; i++){
         if(wishListData[i].id == product.id){
             result = wishListData[i]
         }
     } 
-    
-    // console.log({result})
-
     return result;
 }
 
+//function that does the adding itself
 const doTheAdding = (data:Array<object> | []) => {
     const encryptedData = encrypter(data);
     typeof window !== "undefined" ? window.localStorage.removeItem('nb_wishListxxx'): null;
     typeof window !== "undefined" ? window.localStorage.setItem('nb_wishListxxx', JSON.stringify(encryptedData)): null;
 }
 
+//function that filter out an item from the wishList and returns the rests
 const removewishListItem = (product:Product) => {
     let mainData = getWishListFromLocalStorage();
     if (!mainData) {
@@ -58,6 +56,7 @@ const removewishListItem = (product:Product) => {
     return result;
 }
 
+//fucntion to get wishList
 export const getWishListFromLocalStorage = () => {
     // @ts-ignore
     const result = JSON.parse(typeof window !== "undefined" ? window.localStorage.getItem("nb_wishListxxx"): null);

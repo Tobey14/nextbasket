@@ -9,7 +9,6 @@ import {
 import {Product, ProductProps} from "@/utils/interface";
 import { useRouter } from 'next/navigation';
 import BigLoading from './BigLoading';
-import { AppDispatch } from '@/lib/store';
 
 export default function Products(props: ProductProps) {
   const {products, totalProducts, isLoading} = useSelector((state: any) => state.product); 

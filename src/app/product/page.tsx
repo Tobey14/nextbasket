@@ -12,7 +12,6 @@ import { addToCart, getUserCart} from '@/lib/features/cart/cartSlice';
 import { addToWishList, getUserWishList } from '@/lib/features/wishList/wishListSlice';
 import { toast } from 'react-toastify';
 import { isInWishList } from '@/utils/wishList';
-import { AppDispatch } from '@/lib/store';
 
 
 export default function Product() {
