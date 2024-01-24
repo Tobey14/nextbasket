@@ -9,6 +9,7 @@ import {
 import {Product, ProductProps} from "@/utils/interface";
 import { useRouter } from 'next/navigation';
 import BigLoading from './BigLoading';
+import BtnLoading from './BtnLoading';
 
 export default function Products(props: ProductProps) {
   const {products, totalProducts, isLoading} = useSelector((state: any) => state.product); 
@@ -53,7 +54,7 @@ export default function Products(props: ProductProps) {
         </div>
       }
       {(props.paginated && products.length !== totalProducts) && <div className="w-full text-center mt-5">
-        <button className="text-[#23A6F0] px-5 py-2 w-fit border-solid border-2 border-[#23A6F0] hover:text-[#FFFFFF] hover:bg-[#23A6F0]" onClick={() => setLimit(old => old*2)}>LOAD MORE PRODUCTS</button>
+        <button className="text-[#23A6F0] px-5 py-2 w-fit inline-flex border-solid border-2 border-[#23A6F0] hover:text-[#FFFFFF] hover:bg-[#23A6F0]" onClick={() => setLimit(old => old*2)}>{isLoading && <BtnLoading />}LOAD MORE PRODUCTS</button>
       </div>}
     </section>
   );
