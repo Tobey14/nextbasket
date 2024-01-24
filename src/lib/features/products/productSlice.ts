@@ -31,9 +31,7 @@ export const fetchProducts = createAsyncThunk(
   async (data:number, thunkAPI: any) => {
     try {
         let url = `products/?limit=${data}&select=title,thumbnail,price,discountPercentage,category,rating`;
-        let method = 'get'
         const response = await api.get(url)
-        console.log(response);
         return response.data
     } catch (error) {
         console.log(error);
@@ -46,11 +44,8 @@ export const fetchSingleProduct = createAsyncThunk(
     '/products/1',
     async (data:number, thunkAPI: any) => {
       try {
-        console.log('yes', {data})
           let url = `products/${data}`;
-          let method = 'get'
           const response = await api.get(url)
-          console.log(response);
           return response.data
       } catch (error) {
           console.log(error);

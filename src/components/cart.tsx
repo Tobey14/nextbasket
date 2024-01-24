@@ -169,7 +169,7 @@ export default function Cart() {
                                                 </div> */}
 
                                                 <div className='w-full flex justify-center mt-5'>
-                                                    <button className="w-fit h-fit px-3 py-1 text-[#FFFFFF] items-center bg-[#23A6F0]" onClick={() => console.log("checkout()")} >Checkout</button>
+                                                    <button className="w-fit h-fit px-3 py-1 text-[#FFFFFF] items-center bg-[#23A6F0]" onClick={() => toast.error('checkout not implemented yet')} >Checkout</button>
                                                 </div>
                                             </div>
 

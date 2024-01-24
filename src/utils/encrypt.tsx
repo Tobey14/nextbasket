@@ -1,8 +1,6 @@
 import CryptoJS from "crypto-js";
 export const key = process.env.NEXT_PUBLIC_ENCRYPTION_KEY;
 export const IV = process.env.NEXT_PUBLIC_ENCRYPTION_IV;
-
-console.log({key, IV})
 export const secretKey = CryptoJS.enc.Utf8.parse(key);
 export const intiVector = CryptoJS.enc.Utf8.parse(IV);
 export const options = { keySize: 128 / 8, iv: intiVector, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }; 

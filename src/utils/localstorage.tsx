@@ -10,7 +10,6 @@ export const addActiveProductToLocalStorage = (product:Product) => {
 export const getActiveProductFromLocalStorage = () => {
   const result = typeof window !== "undefined" ? window.localStorage.getItem("NBprodxxxxx"):null;
   const decryptedActiveProduct = result ? deCrypter(result) : null;
-  // console.log({ decryptedActiveProduct });
   return decryptedActiveProduct;
 };
 
