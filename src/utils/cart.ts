@@ -76,12 +76,16 @@ const isInCart = (product:Product) => {
     let cartData = getCartFromLocalStorage();
     let result;
 
-    // console.log({product})
-    for(let i=0; i<cartData.length; i++){
-        if(cartData[i].id == product.id){
-            result = cartData[i]
-        }
-    } 
+    if(typeof cartData === 'object'){
+        // console.log({product})
+        for(let i=0; i<cartData.length; i++){
+            if(cartData[i].id == product.id){
+                result = cartData[i]
+            }
+        }  
+    }
+
+    
     
     // console.log({result})
 
