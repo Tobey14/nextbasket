@@ -76,7 +76,7 @@ const productSlice = createSlice({
       state.isLoading = true;
       state.productFetchStatus = 'pending';
     })
-    .addCase(fetchProducts.fulfilled, (state: CounterState, action: PayloadAction<Product>) => {
+    .addCase(fetchProducts.fulfilled, (state: CounterState, action: PayloadAction<any>) => {
         state.products = action.payload.products;
         state.isLoading = false;
         state.totalProducts = action.payload.total;
