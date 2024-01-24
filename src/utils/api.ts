@@ -10,7 +10,7 @@ const config:AxiosRequestConfig = {
     }
 }
 
-const api:AxiosResponse = axios.create(config);
+const api:AxiosResponse<Promise<any>> = axios.create(config);
 
 
 export default api
