@@ -103,7 +103,7 @@ export default function Cart() {
                                             <div className="w-full md:w-[63%] h-fit bg-[#FFFFFF] p-1 md:p-3 shadow-2xl  overflow-x-hidden overflow-y-auto">
                                                 <p className='m-0'>Items ({total()})</p>
                                                 <hr className='my-3' />
-                                                {!cart.length && <div className='text-center'>
+                                                {!cart?.length && <div className='text-center'>
                                                     <p>Your Cart is Empty</p>
                                                 </div>}
 
