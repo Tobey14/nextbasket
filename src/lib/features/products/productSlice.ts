@@ -69,7 +69,7 @@ const productSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    setActiveProduct(state: CounterState, action: PayloadAction<number>) {
+    setActiveProduct(state: CounterState, action: PayloadAction<Product>) {
       state.activeProduct = action.payload;
       addActiveProductToLocalStorage(action.payload);
     },
