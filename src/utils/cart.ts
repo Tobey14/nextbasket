@@ -49,7 +49,9 @@ export const remove = (product:Product) =>{
 const doTheAdding = (data:Array<object> | []) => {
     const encryptedData = encrypter(data);
     typeof window !== "undefined" ? window.localStorage.removeItem('nb_cartxxx'): null;
-    typeof window !== "undefined" ? window.localStorage.setItem('nb_cartxxx', JSON.stringify(encryptedData)): null;
+    if(data?.length){
+        typeof window !== "undefined" ? window.localStorage.setItem('nb_cartxxx', JSON.stringify(encryptedData)): null;
+    }
 }
 
 //function that checks if product is already in cart or not
@@ -85,6 +87,5 @@ export const getCartFromLocalStorage = () => {
     // @ts-ignore
     const result = JSON.parse(typeof window !== "undefined" ? window.localStorage.getItem("nb_cartxxx"):null);
     const decryptedActiveProduct = result ? deCrypter(result) : null;
-    console.log({ decryptedActiveProduct });
     return decryptedActiveProduct || [];
 };
