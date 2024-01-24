@@ -23,6 +23,7 @@ export default function Footer() {
                 width={20}
                 height={20}
                 alt={`${social} icon`}
+                style={{ width: 'auto', cursor:'pointer', height: 'auto' }}
               />
             })
             }

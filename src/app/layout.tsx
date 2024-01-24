@@ -3,6 +3,12 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Cart from "@/components/cart";
+import {Providers} from "./storeProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -19,11 +25,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#FFFFFF]" >
-        <section className={montserrat.className}>
-          <Header />
-            {children}
-          <Footer />
-        </section>
+        <Providers>
+          <section className={montserrat.className}>
+            <Header />
+              {children}
+              <Cart />
+
+            <Footer />
+          </section> 
+          <ToastContainer 
+            theme="colored"
+            position="bottom-right"
+            autoClose={3000}
+            pauseOnFocusLoss={false}
+            pauseOnHover={false}
+            className="toast"
+          />
+        </Providers>     
       </body>
     </html>
   );

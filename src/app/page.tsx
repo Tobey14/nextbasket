@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <main className="w-full px-5 lg:py-10 lg:px-[250px] relative">
         <HomeTop />
-        <Products title="BESTSELLER PRODUCTS" description='Problems trying to resolve the conflict between' topic="Featured Products" row={5} paginated={true}/>
+        <Products title="BESTSELLER PRODUCTS" description='Problems trying to resolve the conflict between' topic="Featured Products" row={5} paginated={10}/>
         <Services />
         <Posts />
         <Testimonials />

@@ -3,10 +3,25 @@
 import { LocalPhoneOutlined, EmailOutlined, ExpandMore, PersonOutlineOutlined, SearchOutlined, ShoppingCartOutlined, FavoriteBorderOutlined } from '@mui/icons-material';
 import Image from '../../node_modules/next/image';
 import { useState } from 'react';
+import {
+    toggleCart
+} from '@/lib/features/cart/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {Product} from "@/utils/interface";
 
 export default function Header() {
     const socials = ['insta', 'youtube', 'fb', 'twitter'];
     const [showDropDown, setShowDropDown] = useState(false);
+    const { cart } = useSelector((state: any) => state.cart);
+    const dispatch = useDispatch();
+    function total():number {
+        let total = 0;
+        cart.forEach(function (element:Product) {
+            total += Number(element.quantity);
+        });
+        return Number(total);
+    }
+
     return (
         <main className="text-sm font-semibold  cursor-pointer">
             <section className="hidden bg-[#23856D] h-[58px] lg:flex items-center justify-between px-5 text-white">
@@ -35,6 +50,7 @@ export default function Header() {
                             width={16}
                             height={16}
                             alt={`${social} icon`}
+                            style={{ width: '17px', cursor:'pointer', height: 'auto'}}
                         />
                     })
                     }
@@ -66,9 +82,9 @@ export default function Header() {
                         <button className='hidden lg:block'><PersonOutlineOutlined className="hidden text-sm" /> Login / Register</button>
 
                         <ul className='flex space-x-5 items-center'>
-                            <li className='hidden lg:block'><SearchOutlined className="text-base" /></li>
-                            <li className='text-[#737373] lg:text-[#23A6F0]'><ShoppingCartOutlined className="text-xl" /> 1</li>
-                            <li className='text-[#737373] lg:text-[#23A6F0]'><FavoriteBorderOutlined className="text-xl" /> 2</li>
+                            <li className='hidden lg:block cursor-pointer'><SearchOutlined className="text-base" /></li>
+                            <li className='text-[#737373] lg:text-[#23A6F0] cursor-pointer' onClick={() => dispatch(toggleCart(true))}><ShoppingCartOutlined className="text-xl" /> {total()}</li>
+                            <li className='text-[#737373] lg:text-[#23A6F0] cursor-pointer'><FavoriteBorderOutlined className="text-xl" /> 2</li>
                             <Image
                                 className="lg:hidden"
                                 src={`/images/menu.svg`}

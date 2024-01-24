@@ -42,20 +42,14 @@ export default function Posts() {
                   <EqualizerOutlined className="text-base text-[#23856D]"/> 10 comments
                 </p>
               </div>
-              <div className="flex space-x-2">
+              <div className="flex space-x-2 items-center">
                 <p className="font-semibold text-xs">Learn More</p>
-                <ArrowForwardIosOutlined className="text-base text-[#23A6F0]"/>
+                <ArrowForwardIosOutlined className="text-xs text-[#23A6F0]"/>
               </div>
             </div>
-            
-
-            
           </div>
           }
         )}
-      </div>
-      <div className="w-full text-center my-5">
-        <button className="text-[#23A6F0] px-5 py-2 w-fit border-solid border-2 border-[#23A6F0] hover:text-[#FFFFFF] hover:bg-[#23A6F0]">LOAD MORE PRODUCTS</button>
       </div>
     </section>
   );
