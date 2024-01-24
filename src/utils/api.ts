@@ -1,9 +1,9 @@
-import axios,{ AxiosRequestConfig, AxiosResponse} from 'axios'
+import axios,{ AxiosRequestConfig } from 'axios'
 
 const baseURL = process.env.NEXT_PUBLIC_BASE_URL
     , isServer = typeof window === 'undefined'
 
-const config:AxiosRequestConfig = {
+const config = {
     baseURL,
     headers: {
         'Content-Type': 'application/json'
