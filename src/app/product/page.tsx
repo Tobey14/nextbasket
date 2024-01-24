@@ -7,23 +7,18 @@ import Image from "../../../node_modules/next/image";
 import Products from '@/components/products';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatProdPrice } from '@/utils/product';
-import {
-  fetchSingleProduct
-} from '@/lib/features/products/productSlice';
-import {
-  addToCart, getUserCart
-} from '@/lib/features/cart/cartSlice';
-import {
-  addToWishList, getUserWishList
-} from '@/lib/features/wishList/wishListSlice';
+import { fetchSingleProduct} from '@/lib/features/products/productSlice';
+import { addToCart, getUserCart} from '@/lib/features/cart/cartSlice';
+import { addToWishList, getUserWishList } from '@/lib/features/wishList/wishListSlice';
 import { toast } from 'react-toastify';
 import { isInWishList } from '@/utils/wishList';
+import { AppDispatch } from '@/lib/store';
 
 
 export default function Product() {
   const brands = 'abcdef'.split('');
   const { activeProduct } = useSelector((state: any) => state.product);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [activeImage, setActiveImage] = useState(activeProduct?.thumbnail);
   const [isCartUpdated, setIsCartUpdated] = useState(false);
   const [isWishListUpdated, setIsWishListUpdated] = useState(false);
@@ -50,10 +45,6 @@ export default function Product() {
   }
 
   const putInCart = () => {
-    if(isCartUpdated){
-      toast.error('Product added to cart already!');
-      return;
-    }
     dispatch(addToCart(activeProduct)); 
     setTimeout(async ()=>{
       toast.success('Cart updated successfully');
@@ -63,7 +54,7 @@ export default function Product() {
   }
 
   const putInWishList = () => {
-    if(isWishListUpdated || isInWishList(activeProduct)){
+    if(isInWishList(activeProduct)){
       toast.error('Product added to your WishList already!');
       return;
     }

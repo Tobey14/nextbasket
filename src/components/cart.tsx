@@ -10,11 +10,12 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react';
 import { Product } from "@/utils/interface";
 import { toast } from 'react-toastify';
+import { AppDispatch } from '@/lib/store';
 
 export default function Cart() {
     // const data = getActiveProductFromLocalStorage();
     const { isOpen, cart } = useSelector((state: any) => state.cart);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     function closeModal() {
         dispatch(toggleCart(false))
     }

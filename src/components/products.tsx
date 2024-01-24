@@ -9,10 +9,11 @@ import {
 import {Product, ProductProps} from "@/utils/interface";
 import { useRouter } from 'next/navigation';
 import BigLoading from './BigLoading';
+import { AppDispatch } from '@/lib/store';
 
 export default function Products(props: ProductProps) {
   const {products, totalProducts, isLoading} = useSelector((state: any) => state.product); 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [limit, setLimit] = useState(props.paginated | 8);
 
