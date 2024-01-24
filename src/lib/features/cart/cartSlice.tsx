@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import {CartState} from '@/utils/interface';
+import {CartState, Product} from '@/utils/interface';
 import { Add, remove, minusOne, getCartFromLocalStorage } from '@/utils/cart';
 
 
@@ -21,13 +21,13 @@ const cartSlice = createSlice({
     getUserCart(state: CartState){   
         void(state.cart = getCartFromLocalStorage() || []);
     },
-    addToCart(state: CartState, action: PayloadAction<number>){
+    addToCart(state: CartState, action: PayloadAction<Product>){
         return Add(action.payload);
     },
-    removeFromCart(state: CartState, action: PayloadAction<number>){
+    removeFromCart(state: CartState, action: PayloadAction<Product>){
         return remove(action.payload);
     },
-    minusOneFromCart(state: CartState, action: PayloadAction<number>){
+    minusOneFromCart(state: CartState, action: PayloadAction<Product>){
         if(action.payload.quantity < 2){
             return;
         }

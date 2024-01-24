@@ -2,7 +2,7 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import {WishListState} from '@/utils/interface';
+import {WishListState, Product} from '@/utils/interface';
 import { Add, remove, getWishListFromLocalStorage } from '@/utils/wishList';
 
 
@@ -21,10 +21,10 @@ const wishListSlice = createSlice({
     getUserWishList(state: WishListState){   
         void(state.wishList = getWishListFromLocalStorage() || []);
     },
-    addToWishList(state: WishListState, action: PayloadAction<number>){
+    addToWishList(state: WishListState, action: PayloadAction<Product>){
         return Add(action.payload);
     },
-    removeFromWishList(state: WishListState, action: PayloadAction<number>){
+    removeFromWishList(state: WishListState, action: PayloadAction<Product>){
         return remove(action.payload);
     },
   },
