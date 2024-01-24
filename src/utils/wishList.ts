@@ -43,8 +43,8 @@ export const isInWishList = (product:Product) => {
 
 const doTheAdding = (data:Array<object> | []) => {
     const encryptedData = encrypter(data);
-    localStorage? localStorage.removeItem('nb_wishListxxx'): null;
-    localStorage? localStorage.setItem('nb_wishListxxx', JSON.stringify(encryptedData)): null;
+    window?.localStorage? window.localStorage.removeItem('nb_wishListxxx'): null;
+    window?.localStorage? window.localStorage.setItem('nb_wishListxxx', JSON.stringify(encryptedData)): null;
 }
 
 const removewishListItem = (product:Product) => {
@@ -60,7 +60,7 @@ const removewishListItem = (product:Product) => {
 
 export const getWishListFromLocalStorage = () => {
     // @ts-ignore
-    const result = JSON.parse(localStorage? localStorage.getItem("nb_wishListxxx"): null);
+    const result = JSON.parse(window?.localStorage? window.localStorage.getItem("nb_wishListxxx"): null);
     const decryptedActiveProduct = result ? deCrypter(result) : [];
     return typeof decryptedActiveProduct === 'object'? decryptedActiveProduct : [];
 };

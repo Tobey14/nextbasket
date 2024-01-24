@@ -68,8 +68,8 @@ const doTheAdding = (data:Array<object> | []) => {
 
     // console.log('final data',{data})
     const encryptedData = encrypter(data);
-    localStorage? localStorage.removeItem('nb_cartxxx'): null;
-    localStorage? localStorage.setItem('nb_cartxxx', JSON.stringify(encryptedData)): null;
+    window?.localStorage? window.localStorage.removeItem('nb_cartxxx'): null;
+    window?.localStorage? window.localStorage.setItem('nb_cartxxx', JSON.stringify(encryptedData)): null;
 }
 
 const isInCart = (product:Product) => {
@@ -109,7 +109,7 @@ const removeCartItem = (product:Product) => {
 
 export const getCartFromLocalStorage = () => {
     // @ts-ignore
-    const result = JSON.parse(localStorage? localStorage.getItem("nb_cartxxx"):null);
+    const result = JSON.parse(window?.localStorage? window.localStorage.getItem("nb_cartxxx"):null);
     // console.log({ result });
 
     const decryptedActiveProduct = result ? deCrypter(result) : null;
