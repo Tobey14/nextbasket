@@ -15,7 +15,7 @@ const wishListSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    toggleWishList(state: WishListState, action: PayloadAction<number>) {
+    toggleWishList(state: WishListState, action: PayloadAction<boolean>) {
       state.isOpen = action.payload;
     },
     getUserWishList(state: WishListState){   

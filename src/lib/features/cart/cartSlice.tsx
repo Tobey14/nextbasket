@@ -15,7 +15,7 @@ const cartSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
-    toggleCart(state: CartState, action: PayloadAction<number>) {
+    toggleCart(state: CartState, action: PayloadAction<boolean>) {
       state.isOpen = action.payload;
     },
     getUserCart(state: CartState){   
