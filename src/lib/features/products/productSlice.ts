@@ -32,10 +32,7 @@ export const fetchProducts = createAsyncThunk(
     try {
         let url = `products/?limit=${data}&select=title,thumbnail,price,discountPercentage,category,rating`;
         let method = 'get'
-        const response = await api({
-            method,
-            url
-        })
+        const response = await api.get(url)
         console.log(response);
         return response.data
     } catch (error) {
@@ -52,10 +49,7 @@ export const fetchSingleProduct = createAsyncThunk(
         console.log('yes', {data})
           let url = `products/${data}`;
           let method = 'get'
-          const response = await api({
-              method,
-              url
-          })
+          const response = await api.get(url)
           console.log(response);
           return response.data
       } catch (error) {
