@@ -18,7 +18,7 @@ const wishListSlice = createSlice({
     toggleWishList(state: WishListState, action: PayloadAction<number>) {
       state.isOpen = action.payload;
     },
-    getUserWishList(state: WishListState, action: PayloadAction<number>){   
+    getUserWishList(state: WishListState){   
         void(state.wishList = getWishListFromLocalStorage() || []);
     },
     addToWishList(state: WishListState, action: PayloadAction<number>){
