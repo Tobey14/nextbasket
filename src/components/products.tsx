@@ -31,7 +31,7 @@ export default function Products(props: ProductProps) {
       <p className={props.row === 5?"text-center text-[#252B42] text-[24px] font-bold": "text-left text-[#252B42] text-[24px] font-bold"}>{props.title}</p>
       <p className="text-center text-[#737373] text-xs">{props.description}</p>
       {props.row === 4 && <hr className="my-2"/>}
-      {isLoading? <BigLoading />
+      {(isLoading && !products.length)? <BigLoading />
         :
         <div className="flex flex-wrap w-[100%] items-center justify-between py-5">
           {products.map((prod: Product, index: number) => {

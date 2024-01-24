@@ -20,17 +20,21 @@ export default function Cart() {
 
     function totalAmount(): number {
         let total = 0;
-        cart.forEach(function (element: Product) {
-            total += Number(element.price) * Number(element.quantity);
-        });
+        if(cart?.length){
+            cart.forEach(function (element: Product) {
+                total += Number(element.price) * Number(element.quantity);
+            });
+        }
         return Number(total);
     }
 
     function total(): number {
         let total = 0;
-        cart.forEach(function (element: Product) {
-            total += Number(element.quantity);
-        });
+        if(cart?.length){
+            cart.forEach(function (element: Product) {
+                total += Number(element.quantity);
+            });
+        }
         return Number(total);
     }
 
