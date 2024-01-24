@@ -76,13 +76,13 @@ const productSlice = createSlice({
       state.isLoading = true;
       state.productFetchStatus = 'pending';
     })
-    .addCase(fetchProducts.fulfilled, (state: CounterState, action: PayloadAction<number>) => {
+    .addCase(fetchProducts.fulfilled, (state: CounterState, action: PayloadAction<Product>) => {
         state.products = action.payload.products;
         state.isLoading = false;
         state.totalProducts = action.payload.total;
         state.productFetchStatus = 'fulfilled';
     })
-    .addCase(fetchProducts.rejected, (state: CounterState, action: PayloadAction<number>) => {
+    .addCase(fetchProducts.rejected, (state: CounterState) => {
           state.isLoading = false;
         state.productFetchStatus = 'failed';
     })
@@ -90,13 +90,13 @@ const productSlice = createSlice({
       state.isLoading = true;
       state.productFetchStatus = 'pending';
     })
-    .addCase(fetchSingleProduct.fulfilled, (state: CounterState, action: PayloadAction<number>) => {
+    .addCase(fetchSingleProduct.fulfilled, (state: CounterState, action: PayloadAction<Product>) => {
         state.isLoading = false;
         state.activeProduct = action.payload;
         addActiveProductToLocalStorage(action.payload);
         state.productFetchStatus = 'fulfilled';
     })
-    .addCase(fetchSingleProduct.rejected, (state: CounterState, action: PayloadAction<number>) => {
+    .addCase(fetchSingleProduct.rejected, (state: CounterState) => {
           state.isLoading = false;
         state.productFetchStatus = 'failed';
     })
